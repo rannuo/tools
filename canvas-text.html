@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+#canvas-text {
+  outline: 1px solid red;
+}</style>
+</head>
+<body>
+    <input placeholder="canvas-height" oninput="canvas.height = +this.value"/>
+<br/>
+<input placeholder="canvas-width" oninput="canvas.width = +this.value"/>
+<br/>
+<input placeholder="font-size" oninput="fontSize = +this.value"/>
+<br/>
+<input placeholder="text" oninput="text = this.value"/>
+<br/>
+<canvas id="canvas-text"></canvas>
+  
+<script>
+const remToPx = (rem) => {
+    const remNum = parseFloat(rem);
+    const fontSize = parseFloat(window.getComputedStyle(document.querySelector('html')).fontSize);
+    return remNum * fontSize;
+};
+
+var fontSize = 12;
+
+var canvas = document.getElementById('canvas-text');
+var ctx = canvas.getContext('2d');
+var text = '';
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const widthPx = canvas.width;
+  const heightPx = canvas.height;
+
+  ctx.font = fontSize + 'px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'ideographic';
+
+  const y = fontSize + (heightPx - fontSize) / 2;
+
+  ctx.fillText(text, widthPx / 2, y);
+  window.requestAnimationFrame(draw)
+}
+
+window.requestAnimationFrame(draw)
+</script>
+  
+  
+</body>
+</html>
