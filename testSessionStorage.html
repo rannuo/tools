@@ -1,0 +1,45 @@
+<div id="app">
+  <input name="key" placeholder="key" />
+  <input name="value" placeholder="value" />
+  <button onclick="add();view();">add</button>
+  <button onclick="remove();view();">remove</button>
+  <button onclick="clear();view();">clear</button>
+  <button onclick="view();view();">view</button>
+  <div id="sessionStorage"></div>
+</div>
+<script>
+  function getKey() {
+    return document.querySelector('input[name="key"]').value;
+  }
+  function getValue() {
+    return document.querySelector('input[name="value"]').value;
+  }
+
+  function add() {
+    const key = getKey();
+    const value = getValue();
+    sessionStorage.setItem(key, value);
+  }
+
+  function remove() {
+    const key = getKey();
+    sessionStorage.removeItem(key);
+  }
+
+  function clear() {
+    sessionStorage.clear();
+  }
+
+  function view() {
+    const container = document.getElementById('sessionStorage');
+    container.innerHTML = '';
+    let index = 0;
+    if (index < sessionStorage.length) {
+      const key = sessionStorage.key(index);
+      container.append(key  + ': ' + sessionStorage.getItem(key));
+      container.append(document.createElement('br'));
+    }
+  }
+
+  view();
+</script>
